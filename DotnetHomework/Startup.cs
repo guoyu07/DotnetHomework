@@ -38,9 +38,9 @@ namespace DotnetHomework
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySQL(Configuration.GetConnectionString("MysqlConnection")));
+                options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
             services.AddDbContext<SocietyManagementSystemDbContext>(options =>
-                options.UseMySQL(Configuration.GetConnectionString("MysqlConnection")));
+                options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
