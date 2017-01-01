@@ -5,6 +5,11 @@ namespace DotnetHomework.Data
 {
     public class SocietyManagementSystemDbContext : DbContext
     {
+        public SocietyManagementSystemDbContext(DbContextOptions<SocietyManagementSystemDbContext> options) : base(
+            options)
+        {
+        }
+
         public virtual DbSet<ActivityEntity> Activity { get; set; }
         public virtual DbSet<MemberEntity> Member { get; set; }
         public virtual DbSet<SocietyEntity> Society { get; set; }

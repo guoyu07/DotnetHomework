@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DotnetHomework.Migrations
+namespace DotnetHomework.Data.SocietyManagementSystemMigrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,27 +26,13 @@ namespace DotnetHomework.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Admin",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    Password = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admin", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Member",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     Society = table.Column<int>(nullable: false),
-                    User = table.Column<int>(nullable: false)
+                    User = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,7 +59,7 @@ namespace DotnetHomework.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     Category = table.Column<int>(nullable: false),
-                    Creator = table.Column<int>(nullable: false),
+                    Creator = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: true)
@@ -90,25 +76,11 @@ namespace DotnetHomework.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     Activity = table.Column<int>(nullable: false),
-                    User = table.Column<int>(nullable: false)
+                    User = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TakePart", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    Password = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,7 +90,7 @@ namespace DotnetHomework.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     Category = table.Column<string>(nullable: true),
-                    CreatorId = table.Column<int>(nullable: false),
+                    CreatorId = table.Column<string>(nullable: true),
                     CreatorName = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
@@ -136,9 +108,6 @@ namespace DotnetHomework.Migrations
                 name: "Activity");
 
             migrationBuilder.DropTable(
-                name: "Admin");
-
-            migrationBuilder.DropTable(
                 name: "Member");
 
             migrationBuilder.DropTable(
@@ -149,9 +118,6 @@ namespace DotnetHomework.Migrations
 
             migrationBuilder.DropTable(
                 name: "TakePart");
-
-            migrationBuilder.DropTable(
-                name: "User");
 
             migrationBuilder.DropTable(
                 name: "VSocietyInfo");
