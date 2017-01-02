@@ -1,4 +1,6 @@
-﻿namespace DotnetHomework.Data.SocietyManagementSystemEntities
+﻿using System;
+
+namespace DotnetHomework.Data.SocietyManagementSystemEntities
 {
     public class TakePartEntity
     {
@@ -7,5 +9,7 @@
         public string User { get; set; }
 
         public int Activity { get; set; }
+
+        public Nullable<DateTime> Time{ get; set; }
     }
 }

@@ -1,3 +1,7 @@
+@import url(../lib/font-awesome/dist/css/font-awesome.css);
+
+@import url(color.css);
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -44,4 +48,22 @@ textarea { max-width: 280px; }
 @media screen and (max-width: 767px) {
     /* Hide captions */
     .carousel-caption { display: none }
+}
+
+.main-content {
+    margin-bottom: 60px;
+    min-height: 300px;
+}
+
+h3 { font-weight: 700 }
+
+.list-group-item .badge {
+    padding: 3px 7px 3px 8px;
+    line-height: initial;
+    min-width: 36px;
+}
+
+.icon {
+    margin-right: 5px;
+    font-size: inherit;
 }

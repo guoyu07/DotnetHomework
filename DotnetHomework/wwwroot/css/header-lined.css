@@ -1,0 +1,14 @@
+div.header-lined h1 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding: 6px 0;
+    border-bottom: 1px solid #ccc;
+    font-weight: 400;
+    color: #058;
+}
+
+div.header-lined .breadcrumb {
+    margin-top: -15px;
+    font-size: 0.7em;
+    border-radius: 0 0 4px 4px;
+}

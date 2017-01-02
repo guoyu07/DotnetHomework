@@ -7,5 +7,7 @@
         public string User { get; set; }
 
         public int Society { get; set; }
+
+        public string Status { get; set; }
     }
 }

@@ -1,0 +1,207 @@
+@model DotnetHomework.Models.UserCenterViewModels.UserCenterIndexViewModel
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "用户中心";
+}
+
+<link rel="stylesheet" href="~/css/header-lined.css"/>
+<link rel="stylesheet" href="~/css/tile.css"/>
+<link rel="stylesheet" href="~/css/user_center/index.css"/>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+
+  <div class="col-md-3">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-user"></i>你的信息
+        </h3>
+      </div>
+      <div class="panel-body">
+        <strong>@UserManager.GetUserName(User)</strong>
+      </div>
+      <div class="panel-footer">
+        <a asp-controller="Manage" asp-action="Index" class="btn btn-success btn-sm btn-block">更改</a>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-bookmark"></i>操作
+        </h3>
+      </div>
+      <div class="list-group">
+        <a class="list-group-item">
+          加入已有社团
+        </a>
+        <a class="list-group-item">
+          创建新的社团
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="col-md-9 main-content">
+
+    <div class="header-lined">
+      <h1>欢迎回来, @UserManager.GetUserName(User)</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            首页
+          </a>
+        </li>
+        <li class="active">
+          用户中心
+        </li>
+      </ol>
+    </div>
+
+    <div class="tiles">
+      <div class="row">
+        <div class="col-sm-3 col-xs-6 tile">
+          <a>
+            <div class="stat">@Model.AmountOfSocietiesIJoined</div>
+            <div class="title">我加入的社团</div>
+            <div class="highlight bg-color-blue"></div>
+          </a>
+        </div>
+        <div class="col-sm-3 col-xs-6 tile">
+          <a>
+            <div class="stat">@Model.AmountOfSocietiesICreated</div>
+            <div class="title">我管理的社团</div>
+            <div class="highlight bg-color-green"></div>
+          </a>
+        </div>
+        <div class="col-sm-3 col-xs-6 tile">
+          <a>
+            <div class="stat">@Model.AmountOfActivitiesITakingPart</div>
+            <div class="title">我参加的活动</div>
+            <div class="highlight bg-color-red"></div>
+          </a>
+        </div>
+        <div class="col-sm-3 col-xs-6 tile">
+          <a>
+            <div class="stat">@Model.AmountOfEntryApplications</div>
+            <div class="title">入社申请</div>
+            <div class="highlight bg-color-gold"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-12 home-kb-search">
+          <input type="text" name="search" class="form-control input-lg" placeholder="搜索帮助中心...">
+          <i class="icon icon-search"></i>
+        </div>
+      </div>
+    </form>
+
+    <div class="client-home-panels">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="panel panel-default panel-accent-gold">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                我加入的的社团
+                <div class="pull-right">
+                  <a class="btn btn-default bg-color-gold btn-xs">
+                    查看全部
+                  </a>
+                </div>
+              </h3>
+            </div>
+            <div class="list-group">
+              @foreach (var societyIJoined in Model.SocietiesIJoined)
+              {
+                  <a class="list-group-item">
+                    @societyIJoined.SocietyName
+                  </a>
+              }
+            </div>
+            <div class="panel-footer"></div>
+          </div>
+
+          <div class="panel panel-default panel-accent-teal">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                我管理的社团
+                <div class="pull-right">
+                  <a class="btn btn-default bg-color-teal btn-xs">
+                    查看全部
+                  </a>
+                </div>
+              </h3>
+            </div>
+            <div class="list-group">
+              @foreach (var societyICreated in Model.SocietiesICreated)
+              {
+                  <a class="list-group-item">
+                    @societyICreated.Name
+                    <span class="badge">@societyICreated.Status</span>
+                  </a>
+              }
+            </div>
+            <div class="panel-footer"></div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="panel panel-default panel-accent-blue">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                最新活动
+                <div class="pull-right">
+                  <a class="btn btn-default bg-color-blue btn-xs">
+                    查看全部
+                  </a>
+                </div>
+              </h3>
+            </div>
+            <div class="list-group">
+              @foreach (var recentActivity in Model.RecentActivities)
+              {
+                  <a class="list-group-item">
+                    @recentActivity.SocietyName - @recentActivity.Name
+                    <span class="badge">@recentActivity.Status</span>
+                  </a>
+              }
+            </div>
+            <div class="panel-footer"></div>
+          </div>
+
+          <div class="panel panel-default panel-accent-asbestos">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                入社申请
+                <div class="pull-right">
+                  <a class="btn btn-default bg-color-asbestos btn-xs">
+                    查看全部
+                  </a>
+                </div>
+              </h3>
+            </div>
+            <div class="list-group">
+              @foreach (var entryApplication in Model.EntryApplications)
+              {
+                  <a class="list-group-item">
+                    @entryApplication.SocietyName
+                  </a>
+              }
+            </div>
+            <div class="panel-footer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

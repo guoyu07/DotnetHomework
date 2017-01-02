@@ -12,7 +12,7 @@
           <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
         </li>
         <li>
-          <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
+          <button type="submit" class="btn btn-link navbar-btn navbar-link">注销</button>
         </li>
       </ul>
     </form>
@@ -21,10 +21,10 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <a asp-controller="Account" asp-action="Register">Register</a>
+        <a asp-controller="Account" asp-action="Register">注册</a>
       </li>
       <li>
-        <a asp-controller="Account" asp-action="Login">Log in</a>
+        <a asp-controller="Account" asp-action="Login">登录</a>
       </li>
     </ul>
 }

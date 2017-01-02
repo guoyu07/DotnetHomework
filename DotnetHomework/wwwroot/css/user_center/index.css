@@ -1,0 +1,35 @@
+input {
+    max-width: none;
+}
+
+.home-kb-search {
+    padding-bottom: 15px;
+}
+
+.home-kb-search i {
+    position: relative;
+    top: -35px;
+    left: 20px;
+    color: #777;
+    font-size: 16px;
+}
+
+.home-kb-search .form-control {
+    border: 0;
+    background-color: #444;
+    color: #fff;
+    padding-left: 50px;
+}
+
+.client-home-panels .panel .panel-heading .panel-title .btn {
+    color: #fff;
+    border: 0;
+}
+
+.client-home-panels .panel .panel-heading .panel-title .btn:hover {
+    color: #000;
+}
+
+.client-home-panels .panel .list-group .list-group-item {
+    padding: 4px 10px;
+}
