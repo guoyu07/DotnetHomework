@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DotnetHomework.Data.SocietyManagementSystemEntities;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,15 +19,16 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 .ToList();
         }
 
-        public static List<VActivityInfoEntity> FindTop5BySocietyIdInAndStatusNotPendingOderByCreateTimeDesc(
-            this DbSet<VActivityInfoEntity> vActivityInfoEntities,
-            List<int> societyIds)
+        public static async Task<List<VActivityInfoEntity>>
+            FindTop5BySocietyIdInAndStatusNotPendingOderByCreateTimeDescAsync(
+                this DbSet<VActivityInfoEntity> vActivityInfoEntities,
+                List<int> societyIds)
         {
-            return vActivityInfoEntities.Where(d =>
-                    societyIds.Contains(d.SocietyId) &&
-                    d.Status != ActivityDbSetStatusEnum.Pending.ToString())
-                .OrderByDescending(d => d.CreateTime)
-                .ToList()
+            return (await vActivityInfoEntities.Where(d =>
+                        societyIds.Contains(d.SocietyId) &&
+                        d.Status != ActivityDbSetStatusEnum.Pending.ToString())
+                    .OrderByDescending(d => d.CreateTime)
+                    .ToListAsync())
                 .Take(5)
                 .ToList();
         }

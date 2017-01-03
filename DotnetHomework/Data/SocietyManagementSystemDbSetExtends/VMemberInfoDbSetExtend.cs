@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DotnetHomework.Data.SocietyManagementSystemEntities;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,15 +19,14 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 .ToList();
         }
 
-        public static List<VMemberInfoEntity> FindTop5ByUserIdAndStatusIsAccept(
+        public static async Task<List<VMemberInfoEntity>> FindTop5ByUserIdAndStatusIsAccept(
             this DbSet<VMemberInfoEntity> vMemberInfoEntities,
             string userId)
         {
-            return vMemberInfoEntities.Where(d =>
-                    d.UserId.Equals(userId) &&
-                    d.Status == MemberDbSetStatusEnum.Accept.ToString())
-                .ToList()
-                .Take(5)
+            return (await vMemberInfoEntities.Where(d =>
+                        d.UserId.Equals(userId) &&
+                        d.Status == MemberDbSetStatusEnum.Accept.ToString())
+                    .ToListAsync()).Take(5)
                 .ToList();
         }
 
@@ -40,14 +40,14 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 .ToList();
         }
 
-        public static List<VMemberInfoEntity> FindTop5ByUserIdAndStatusIsPending(
+        public static async Task<List<VMemberInfoEntity>> FindTop5ByUserIdAndStatusIsPendingAsync(
             this DbSet<VMemberInfoEntity> vMemberInfoEntities,
             string userId)
         {
-            return vMemberInfoEntities.Where(d =>
-                    d.UserId.Equals(userId) &&
-                    d.Status == MemberDbSetStatusEnum.Pending.ToString())
-                .ToList()
+            return (await vMemberInfoEntities.Where(d =>
+                        d.UserId.Equals(userId) &&
+                        d.Status == MemberDbSetStatusEnum.Pending.ToString())
+                    .ToListAsync())
                 .Take(5)
                 .ToList();
         }

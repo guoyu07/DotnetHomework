@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DotnetHomework.Data.SocietyManagementSystemEntities;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,8 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
             return vSocietyInfoEntities.Where(d =>
                     d.CreatorId.Equals(creatorId) &&
                     d.Status == ActivityDbSetStatusEnum.Active.ToString()
-                ).ToList();
+                )
+                .ToList();
         }
 
         public static List<VSocietyInfoEntity> FindByCreatorIdAndStatusNotReject(
@@ -22,16 +24,19 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
             return vSocietyInfoEntities.Where(d =>
                     d.CreatorId.Equals(creatorId) &&
                     d.Status != SocietyDbSetStatusEnum.Reject.ToString()
-                ).ToList();
+                )
+                .ToList();
         }
 
-        public static List<VSocietyInfoEntity> FindTop5ByCreatorIdAndStatusNotReject(
+        public static async Task<List<VSocietyInfoEntity>> FindTop5ByCreatorIdAndStatusNotRejectAsync(
             this DbSet<VSocietyInfoEntity> vSocietyInfoEntities, string creatorId)
         {
-            return vSocietyInfoEntities.Where(d =>
-                d.CreatorId.Equals(creatorId) &&
-                d.Status != SocietyDbSetStatusEnum.Reject.ToString()
-            ).ToList().Take(5).ToList();
+            return (await vSocietyInfoEntities.Where(d =>
+                        d.CreatorId.Equals(creatorId) &&
+                        d.Status != SocietyDbSetStatusEnum.Reject.ToString()
+                    )
+                    .ToListAsync()).Take(5)
+                .ToList();
         }
 
         public static List<VSocietyInfoEntity> FindByIdIn(this DbSet<VSocietyInfoEntity> vSocietyInfoEntities,

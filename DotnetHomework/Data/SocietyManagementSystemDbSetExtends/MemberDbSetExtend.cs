@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DotnetHomework.Data.SocietyManagementSystemEntities;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +8,10 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
 {
     public static class MemberDbSetExtend
     {
-        public static int GetCountByUserAndStatusIsAccept(this DbSet<MemberEntity> memberEntities, string user)
+        public static async Task<int> GetCountByUserAndStatusIsAcceptAsync(this DbSet<MemberEntity> memberEntities,
+            string user)
         {
-            return memberEntities.Count(d =>
+            return await memberEntities.CountAsync(d =>
                 d.User.Equals(user) &&
                 d.Status == MemberDbSetStatusEnum.Accept.ToString()
             );
@@ -25,19 +27,21 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 .ToList();
         }
 
-        public static List<MemberEntity> FindByUserAndStatusNotPending(this DbSet<MemberEntity> memberEntities,
+        public static async Task<List<MemberEntity>> FindByUserAndStatusNotPendingAysnc(
+            this DbSet<MemberEntity> memberEntities,
             string user)
         {
-            return memberEntities.Where(d =>
+            return await memberEntities.Where(d =>
                     d.User.Equals(user) &&
                     d.Status != MemberDbSetStatusEnum.Pending.ToString()
                 )
-                .ToList();
+                .ToListAsync();
         }
 
-        public static int GetCountByUserAndStatusIsPending(this DbSet<MemberEntity> memberEntities, string user)
+        public static async Task<int> GetCountByUserAndStatusIsPendingAsync(this DbSet<MemberEntity> memberEntities,
+            string user)
         {
-            return memberEntities.Count(d =>
+            return await memberEntities.CountAsync(d =>
                 d.User.Equals(user) &&
                 d.Status == MemberDbSetStatusEnum.Pending.ToString()
             );

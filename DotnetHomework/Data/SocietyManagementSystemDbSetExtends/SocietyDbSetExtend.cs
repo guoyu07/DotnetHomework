@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DotnetHomework.Data.SocietyManagementSystemEntities;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +8,10 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
 {
     public static class SocietyDbSetExtend
     {
-        public static int GetCountByCreatorAndStatusIsActive(this DbSet<SocietyEntity> societyEntities, string creator)
+        public static async Task<int> GetCountByCreatorAndStatusIsActiveAsync(this DbSet<SocietyEntity> societyEntities,
+            string creator)
         {
-            return societyEntities.Count(d =>
+            return await societyEntities.CountAsync(d =>
                 d.Creator.Equals(creator) &&
                 d.Status == SocietyDbSetStatusEnum.Active.ToString()
             );
@@ -20,14 +22,15 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
             return societyEntities.Where(d => d.Creator.Equals(creator)).ToList();
         }
 
-        public static List<SocietyEntity> FindByCreatorAndStatusNotPending(this DbSet<SocietyEntity> societyEntities,
+        public static async Task<List<SocietyEntity>> FindByCreatorAndStatusNotPendingAysnc(
+            this DbSet<SocietyEntity> societyEntities,
             string creator)
         {
-            return societyEntities.Where(d =>
+            return await societyEntities.Where(d =>
                     d.Creator.Equals(creator) &&
                     d.Status != SocietyDbSetStatusEnum.Pending.ToString()
                 )
-                .ToList();
+                .ToListAsync();
         }
     }
 
