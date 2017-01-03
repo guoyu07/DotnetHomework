@@ -17,5 +17,7 @@ namespace DotnetHomework.Data.SocietyManagementSystemEntities
         public Nullable<DateTime> CreateTime { get; set; }
 
         public string Status { get; set; }
+
+        public string Reason { get; set; }
     }
 }

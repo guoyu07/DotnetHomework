@@ -22,13 +22,13 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
             return societyEntities.Where(d => d.Creator.Equals(creator)).ToList();
         }
 
-        public static async Task<List<SocietyEntity>> FindByCreatorAndStatusNotPendingAysnc(
+        public static async Task<List<SocietyEntity>> FindByCreatorAndStatusIsActiveAysnc(
             this DbSet<SocietyEntity> societyEntities,
             string creator)
         {
             return await societyEntities.Where(d =>
                     d.Creator.Equals(creator) &&
-                    d.Status != SocietyDbSetStatusEnum.Pending.ToString()
+                    d.Status == SocietyDbSetStatusEnum.Active.ToString()
                 )
                 .ToListAsync();
         }

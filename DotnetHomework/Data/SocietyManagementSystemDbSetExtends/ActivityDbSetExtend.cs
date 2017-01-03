@@ -8,6 +8,7 @@
     {
         Pending,
         Active,
-        Closed
+        Closed,
+        Reject
     }
 }

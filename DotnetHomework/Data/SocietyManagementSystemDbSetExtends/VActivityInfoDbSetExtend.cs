@@ -20,13 +20,14 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
         }
 
         public static async Task<List<VActivityInfoEntity>>
-            FindTop5BySocietyIdInAndStatusNotPendingOderByCreateTimeDescAsync(
+            FindTop5BySocietyIdInAndStatusIsActiveOrStatusIsClosedOderByCreateTimeDescAsync(
                 this DbSet<VActivityInfoEntity> vActivityInfoEntities,
                 List<int> societyIds)
         {
             return (await vActivityInfoEntities.Where(d =>
                         societyIds.Contains(d.SocietyId) &&
-                        d.Status != ActivityDbSetStatusEnum.Pending.ToString())
+                        (d.Status == ActivityDbSetStatusEnum.Active.ToString() ||
+                         d.Status == ActivityDbSetStatusEnum.Closed.ToString()))
                     .OrderByDescending(d => d.CreateTime)
                     .ToListAsync())
                 .Take(5)

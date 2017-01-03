@@ -62,16 +62,17 @@ namespace DotnetHomework.Services
         {
             List<int> societies = new List<int>();
             //我创建的社团
-            (await _societyManagementSystemDbContext.Society.FindByCreatorAndStatusNotPendingAysnc(_userManager
+            (await _societyManagementSystemDbContext.Society.FindByCreatorAndStatusIsActiveAysnc(_userManager
                     .GetUserId(user)))
                 .ForEach(societyEntity => { societies.Add(societyEntity.Id); });
             //我加入的社团
-            (await _societyManagementSystemDbContext.Member.FindByUserAndStatusNotPendingAysnc(
+            (await _societyManagementSystemDbContext.Member.FindByUserAndStatusIsAcceptAysnc(
                     _userManager.GetUserId(user)))
                 .ForEach(memberEntity => { societies.Add(memberEntity.Society); });
 
+            //返回状态为 Active 或 Closed 的活动
             return await _societyManagementSystemDbContext.VActivityInfo
-                .FindTop5BySocietyIdInAndStatusNotPendingOderByCreateTimeDescAsync(societies);
+                .FindTop5BySocietyIdInAndStatusIsActiveOrStatusIsClosedOderByCreateTimeDescAsync(societies);
         }
 
         public async Task<List<VMemberInfoEntity>> GetEntryApplications(ClaimsPrincipal user)

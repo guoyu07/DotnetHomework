@@ -27,13 +27,13 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 .ToList();
         }
 
-        public static async Task<List<MemberEntity>> FindByUserAndStatusNotPendingAysnc(
+        public static async Task<List<MemberEntity>> FindByUserAndStatusIsAcceptAysnc(
             this DbSet<MemberEntity> memberEntities,
             string user)
         {
             return await memberEntities.Where(d =>
                     d.User.Equals(user) &&
-                    d.Status != MemberDbSetStatusEnum.Pending.ToString()
+                    d.Status == MemberDbSetStatusEnum.Accept.ToString()
                 )
                 .ToListAsync();
         }
