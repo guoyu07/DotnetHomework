@@ -54,5 +54,30 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                     .ToListAsync()).Take(9)
                 .ToList();
         }
+
+        public static async Task<List<VSocietyInfoEntity>>
+            FindByNameContainsAndCategoryIdAndDescriptionContainsAndStatusIsActiveAsync(
+                this DbSet<VSocietyInfoEntity> vSocietyInfoEntities, string name, int categoryId, string description)
+        {
+            return (await vSocietyInfoEntities.Where(d =>
+                        d.CategoryId == categoryId)
+                    .ToListAsync()).Where(d =>
+                    d.Name.Contains(name) &&
+                    d.Description.Contains(description) &&
+                    d.Status == SocietyDbSetStatusEnum.Active.ToString())
+                .ToList();
+        }
+
+        public static async Task<List<VSocietyInfoEntity>>
+            FindByNameContainsAndDescriptionContainsAndStatusIsActiveAsync(
+                this DbSet<VSocietyInfoEntity> vSocietyInfoEntities, string name, string description)
+        {
+            return (await vSocietyInfoEntities
+                    .ToListAsync()).Where(d =>
+                    d.Name.Contains(name) &&
+                    d.Description.Contains(description) &&
+                    d.Status == SocietyDbSetStatusEnum.Active.ToString())
+                .ToList();
+        }
     }
 }

@@ -42,7 +42,7 @@
         </h3>
       </div>
       <div class="list-group">
-        <a class="list-group-item">
+        <a asp-controller="Society" asp-action="Search" class="list-group-item">
           详细搜索
         </a>
         <a class="list-group-item">
@@ -69,10 +69,10 @@
       </ol>
     </div>
 
-    <form>
+    <form asp-controller="Society" asp-action="Search" method="post">
       <div class="row">
         <div class="col-md-12 home-kb-search">
-          <input type="text" name="search" class="form-control input-lg" placeholder="寻找心仪的社团...">
+          <input name="NameContains" type="text" name="search" class="form-control input-lg" placeholder="寻找心仪的社团...">
           <i class="icon icon-search"></i>
         </div>
       </div>
@@ -82,10 +82,10 @@
 
       @foreach (VSocietyInfoEntity vSocietyInfoEntity in Model.VSocietyInfoEntities)
       {
-          <div class="col-md-4">
+          <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="card">
               <div class="card-header">
-                @vSocietyInfoEntity.Category
+                @vSocietyInfoEntity.CategoryName
               </div>
               <div class="card-block">
                 <h4 class="card-title">@vSocietyInfoEntity.Name</h4>

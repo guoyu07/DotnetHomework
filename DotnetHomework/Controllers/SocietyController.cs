@@ -1,5 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DotnetHomework.Data.SocietyManagementSystemEntities;
 using DotnetHomework.Models;
 using DotnetHomework.Models.SocietyViewModels;
 using DotnetHomework.Services;
@@ -17,7 +18,8 @@ namespace DotnetHomework.Controllers
         private readonly SocietyServices _societyServices;
         private readonly ActivityServices _activityServices;
 
-        public SocietyController(UserManager<ApplicationUser> userManager, SocietyServices societyServices, ActivityServices activityServices)
+        public SocietyController(UserManager<ApplicationUser> userManager, SocietyServices societyServices,
+            ActivityServices activityServices)
         {
             _userManager = userManager;
             _societyServices = societyServices;
@@ -44,6 +46,33 @@ namespace DotnetHomework.Controllers
             };
 
             return View(societyIndexViewModel);
+        }
+
+        //
+        // GET: /Society/Search
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Search()
+        {
+            SocietySearchViewModel societySearchViewModel = new SocietySearchViewModel
+            {
+                SocietyCategoryEntities = await _societyServices.GetSocietyCategoriesAsync(),
+                VSocietyInfoEntities = new List<VSocietyInfoEntity>()
+            };
+
+            return View(societySearchViewModel);
+        }
+
+        //
+        // POST: /Society/Search
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Search(SocietySearchViewModel societySearchViewModel)
+        {
+            societySearchViewModel.VSocietyInfoEntities =
+                await _societyServices.SearchSocieties(societySearchViewModel);
+            societySearchViewModel.SocietyCategoryEntities = await _societyServices.GetSocietyCategoriesAsync();
+            return View(societySearchViewModel);
         }
     }
 }
