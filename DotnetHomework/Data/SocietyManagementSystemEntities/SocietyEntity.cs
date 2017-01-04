@@ -1,4 +1,6 @@
-﻿namespace DotnetHomework.Data.SocietyManagementSystemEntities
+﻿using System;
+
+namespace DotnetHomework.Data.SocietyManagementSystemEntities
 {
     public class SocietyEntity
     {
@@ -11,6 +13,8 @@
         public string Description { get; set; }
 
         public string Creator { get; set; }
+
+        public DateTime? CreateTime { get; set; }
 
         public string Status { get; set; }
 

@@ -74,5 +74,18 @@ namespace DotnetHomework.Controllers
             societySearchViewModel.SocietyCategoryEntities = await _societyServices.GetSocietyCategoriesAsync();
             return View(societySearchViewModel);
         }
+
+        //
+        // GET: /Society/Info/{id}
+        [HttpGet]
+        public async Task<IActionResult> Info(int id)
+        {
+            SocietyInfoViewModel societyInfoViewModel = new SocietyInfoViewModel
+            {
+                VSocietyInfoEntity = await _societyServices.GetVSocietyInfoEntityByIdAsync(id)
+            };
+
+            return View(societyInfoViewModel);
+        }
     }
 }

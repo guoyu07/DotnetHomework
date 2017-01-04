@@ -79,5 +79,11 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                     d.Status == SocietyDbSetStatusEnum.Active.ToString())
                 .ToList();
         }
+
+        public static async Task<VSocietyInfoEntity> FindByIdAsync(this DbSet<VSocietyInfoEntity> vSocietyInfoEntities,
+            int id)
+        {
+            return await vSocietyInfoEntities.SingleOrDefaultAsync(d => d.Id == id);
+        }
     }
 }

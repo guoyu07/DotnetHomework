@@ -1,0 +1,89 @@
+@model DotnetHomework.Models.SocietyViewModels.SocietyInfoViewModel
+
+@{
+    ViewData["Title"] = "社团详情";
+}
+
+<link rel="stylesheet" href="~/css/header-lined.css"/>
+<link rel="stylesheet" href="~/css/society/info.css"/>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+
+  <div class="col-md-3">
+
+    <form asp-controller="Society" asp-action="Search" method="post" class="form-horizontal">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <i class="icon icon-star"></i>概况
+          </h3>
+        </div>
+        <div class="list-group">
+          <a class="list-group-item active" href="#">
+            信息
+          </a>
+        </div>
+      </div>
+    </form>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-wrench"></i>操作
+        </h3>
+      </div>
+      <div class="list-group">
+        <a class="list-group-item">
+          创建新的社团
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="col-md-9 main-content">
+
+    <div class="header-lined">
+      <h1>社团详情</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            首页
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Index">
+            社团
+          </a>
+        </li>
+        <li class="active">社团详情</li>
+      </ol>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h1>@Model.VSocietyInfoEntity.Name</h1>
+        <h4>分类 @Model.VSocietyInfoEntity.CategoryName</h4>
+        <h4>创建者 @Model.VSocietyInfoEntity.CreatorName</h4>
+        <h4>创建时间 @Model.VSocietyInfoEntity.CreateTime</h4>
+        <h4>成员数量 @Model.VSocietyInfoEntity.MemberCount</h4>
+      </div>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-10">
+          <h3>入社申请</h3>
+          <div class="form-group">
+            <textarea asp-for="Post" class="form-control" rows="7"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">提交</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

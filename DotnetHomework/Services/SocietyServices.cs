@@ -54,5 +54,10 @@ namespace DotnetHomework.Services
                 .FindByNameContainsAndCategoryIdAndDescriptionContainsAndStatusIsActiveAsync(societySearchViewModel.NameContains,
                     (int) societySearchViewModel.SelectedCategory, societySearchViewModel.DescriptionContains);
         }
+
+        public async Task<VSocietyInfoEntity> GetVSocietyInfoEntityByIdAsync(int id)
+        {
+            return await _societyManagementSystemDbContext.VSocietyInfo.FindByIdAsync(id);
+        }
     }
 }

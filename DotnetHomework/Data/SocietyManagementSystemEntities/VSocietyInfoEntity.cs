@@ -1,4 +1,6 @@
-﻿namespace DotnetHomework.Data.SocietyManagementSystemEntities
+﻿using System;
+
+namespace DotnetHomework.Data.SocietyManagementSystemEntities
 {
     public class VSocietyInfoEntity
     {
@@ -11,6 +13,8 @@
         public string CategoryName { get; set; }
 
         public string Description { get; set; }
+
+        public DateTime? CreateTime { get; set; }
 
         public int MemberCount { get; set; }
 
