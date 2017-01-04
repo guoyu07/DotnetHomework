@@ -8,6 +8,9 @@
 
         public int Society { get; set; }
 
+        public string EntryPost { get; set; }
+
         public string Status { get; set; }
+
     }
 }

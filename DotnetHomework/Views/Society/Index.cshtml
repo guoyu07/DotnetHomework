@@ -1,0 +1,102 @@
+@using DotnetHomework.Data.SocietyManagementSystemEntities
+@model DotnetHomework.Models.SocietyViewModels.SocietyIndexViewModel
+
+@{
+    ViewData["Title"] = "社团";
+}
+
+<link rel="stylesheet" href="~/css/header-lined.css"/>
+<link rel="stylesheet" href="~/css/home-kb-search.css"/>
+<link rel="stylesheet" href="~/css/society/index.css"/>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+
+  <div class="col-md-3">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-info-sign"></i>总览
+        </h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          系统中可用 <strong>@Model.SystemInfoOverviewViewModel.CountOfSocieties</strong> 个社团
+        </p>
+        <p>
+          已审核通过 <strong>@Model.SystemInfoOverviewViewModel.CountOfActivities</strong> 个活动
+        </p>
+        <p>
+          系统中共有 <strong>@Model.SystemInfoOverviewViewModel.CountOfUsers</strong> 个用户
+        </p>
+      </div>
+      <div class="panel-footer"></div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-bookmark"></i>操作
+        </h3>
+      </div>
+      <div class="list-group">
+        <a class="list-group-item">
+          详细搜索
+        </a>
+        <a class="list-group-item">
+          创建新的社团
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-9 main-content">
+
+    <div class="header-lined">
+      <h1>最热门</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            首页
+          </a>
+        </li>
+        <li class="active">
+          社团
+        </li>
+      </ol>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-12 home-kb-search">
+          <input type="text" name="search" class="form-control input-lg" placeholder="寻找心仪的社团...">
+          <i class="icon icon-search"></i>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+
+      @foreach (VSocietyInfoEntity vSocietyInfoEntity in Model.VSocietyInfoEntities)
+      {
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                @vSocietyInfoEntity.Category
+              </div>
+              <div class="card-block">
+                <h4 class="card-title">@vSocietyInfoEntity.Name</h4>
+                <p class="card-text">@vSocietyInfoEntity.Description</p>
+                <a href="#" class="btn btn-primary">立即加入</a>
+                <span>已有 <strong>@vSocietyInfoEntity.MemberCount</strong> 人加入</span>
+              </div>
+            </div>
+          </div>
+      }
+
+    </div>
+  </div>
+</div>

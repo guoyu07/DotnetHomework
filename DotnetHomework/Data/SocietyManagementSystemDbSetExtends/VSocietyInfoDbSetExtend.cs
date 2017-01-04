@@ -44,5 +44,15 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
         {
             return vSocietyInfoEntities.Where(d => ids.Contains(d.Id)).ToList();
         }
+
+        public static async Task<List<VSocietyInfoEntity>> FindTop9AndStatusIsActiveOderByMemberCountDescAsync(
+            this DbSet<VSocietyInfoEntity> vSocietyInfoEntities)
+        {
+            return (await vSocietyInfoEntities.Where(d =>
+                        d.Status == SocietyDbSetStatusEnum.Active.ToString())
+                    .OrderByDescending(d => d.MemberCount)
+                    .ToListAsync()).Take(9)
+                .ToList();
+        }
     }
 }

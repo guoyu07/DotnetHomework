@@ -32,6 +32,11 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 )
                 .ToListAsync();
         }
+
+        public static async Task<int> GetCountAndStatusIsActiveAsync(this DbSet<SocietyEntity> societyEntities)
+        {
+            return await societyEntities.CountAsync(d => d.Status == SocietyDbSetStatusEnum.Active.ToString());
+        }
     }
 
     public enum SocietyDbSetStatusEnum

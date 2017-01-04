@@ -1,0 +1,20 @@
+/*搜索框*/
+
+.home-kb-search {
+    padding-bottom: 15px;
+}
+
+.home-kb-search i {
+    position: relative;
+    top: -35px;
+    left: 20px;
+    color: #777;
+    font-size: 16px;
+}
+
+.home-kb-search .form-control {
+    border: 0;
+    background-color: #444;
+    color: #fff;
+    padding-left: 50px;
+}

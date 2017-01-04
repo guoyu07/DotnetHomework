@@ -7,6 +7,9 @@
 
   <environment names="Development">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="~/lib/font-awesome/dist/css/font-awesome.css"/>
+    <link rel="stylesheet" href="~/css/color.css"/>
+    <link rel="stylesheet" href="~/css/card.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
   </environment>
   <environment names="Staging,Production">
@@ -32,6 +35,9 @@
       <ul class="nav navbar-nav">
         <li>
           <a asp-controller="Home" asp-action="Index">首页</a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Index">社团</a>
         </li>
         <li>
           <a asp-controller="UserCenter" asp-action="Index">用户中心</a>
