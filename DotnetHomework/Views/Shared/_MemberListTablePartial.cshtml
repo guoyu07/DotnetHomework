@@ -1,0 +1,23 @@
+@using DotnetHomework.Data.SocietyManagementSystemEntities
+@model List<VMemberInfoEntity>
+
+<div class="col-md-10">
+  <table class="table">
+    <h3>成员列表</h3>
+    <thead>
+    <tr>
+      <th>用户名</th>
+      <th>加入时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (VMemberInfoEntity vMemberInfoEntity in  Model)
+    {
+        <tr>
+          <td>@vMemberInfoEntity.UserName</td>
+          <td>@vMemberInfoEntity.EntryTime</td>
+        </tr>
+    }
+    </tbody>
+  </table>
+</div>

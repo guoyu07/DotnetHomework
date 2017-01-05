@@ -138,6 +138,20 @@ namespace DotnetHomework.Services
                 ? SocietyCreateResultEnum.Success
                 : SocietyCreateResultEnum.AlreadyExists;
         }
+
+        public async Task<VSocietyInfoEntity> GetVSocietyInfo(int id)
+        {
+            return await _societyManagementSystemDbContext.VSocietyInfo.FindByIdAsync(id);
+        }
+
+        public async Task<bool> EditSocietyDescription(int id, string description)
+        {
+            SocietyEntity societyEntity = await _societyManagementSystemDbContext.Society.FindById(id);
+            societyEntity.Description = description;
+            _societyManagementSystemDbContext.Society.Update(societyEntity);
+
+            return await _societyManagementSystemDbContext.SaveChangesAsync() != 0;
+        }
     }
 
     public enum SocietyCreateResultEnum

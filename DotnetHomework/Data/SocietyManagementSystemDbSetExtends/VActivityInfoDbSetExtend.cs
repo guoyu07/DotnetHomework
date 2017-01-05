@@ -33,5 +33,13 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 .Take(5)
                 .ToList();
         }
+
+        public static async Task<List<VActivityInfoEntity>> FindBySocietyIdOderByCreateTimeDescAsync(
+            this DbSet<VActivityInfoEntity> vActivityInfoEntities, int societyId)
+        {
+            return await vActivityInfoEntities.Where(d => d.SocietyId == societyId)
+                .OrderByDescending(d => d.CreateTime)
+                .ToListAsync();
+        }
     }
 }

@@ -1,0 +1,29 @@
+@using DotnetHomework.Data.SocietyManagementSystemEntities
+@model List<VActivityInfoEntity>
+
+<div class="col-md-10">
+  <table class="table">
+    <h3>活动列表</h3>
+    <thead>
+    <tr>
+      <th>活动名</th>
+      <th>创建时间</th>
+      <th>活动时间</th>
+      <th>状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (VActivityInfoEntity vActivityInfoEntity in  Model)
+    {
+        <tr>
+          <td>
+            <a href="/123">@vActivityInfoEntity.Name</a>
+          </td>
+          <td>@vActivityInfoEntity.CreateTime</td>
+          <td>@vActivityInfoEntity.Time</td>
+          <td>@vActivityInfoEntity.Status</td>
+        </tr>
+    }
+    </tbody>
+  </table>
+</div>

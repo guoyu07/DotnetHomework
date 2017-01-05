@@ -116,7 +116,8 @@ namespace DotnetHomework.Controllers
                 IsPending = isPending,
                 VMemberInfoEntities = vMemberInfoEntities,
                 VSocietyInfoEntity = vSocietyInfoEntity,
-                Post = post
+                Post = post,
+                VActivityInfoEntities = await _activityServices.GetAllActivitiesDescAsync(id)
             };
 
             return View(societyInfoViewModel);
@@ -168,6 +169,39 @@ namespace DotnetHomework.Controllers
             }
 
             return View(societyCreateViewModel);
+        }
+
+        //
+        // GET: /Society/Manage/{id}
+        [HttpGet]
+        public async Task<IActionResult> Manage(int id)
+        {
+            if (!await _societyServices.IsCreator(_userManager.GetUserId(User), id))
+            {
+                return View("Error");
+            }
+
+            SocietyManageViewModel societyManageViewModel = new SocietyManageViewModel
+            {
+                VSocietyInfoEntity = await _societyServices.GetVSocietyInfo(id),
+                VMemberInfoEntities = await _societyServices.GetAvailableMembersAsync(id),
+                VActivityInfoEntities = await _activityServices.GetAllActivitiesDescAsync(id)
+            };
+
+            return View(societyManageViewModel);
+        }
+
+        //
+        // POST: /Society/Manage/{id}
+        [HttpPost]
+        public async Task<IActionResult> Manage(SocietyManageViewModel societyManageViewModel)
+        {
+            if (!await _societyServices.EditSocietyDescription(societyManageViewModel.VSocietyInfoEntity.Id,
+                societyManageViewModel.VSocietyInfoEntity.Description))
+            {
+                return View("Error");
+            }
+            return RedirectToAction("Manage");
         }
     }
 }

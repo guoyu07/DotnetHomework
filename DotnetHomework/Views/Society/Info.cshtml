@@ -36,6 +36,12 @@
         </h3>
       </div>
       <div class="list-group">
+        @if (Model.IsCreator)
+        {
+            <a asp-controller="Society" asp-action="Manage" asp-route-id=@Model.VSocietyInfoEntity.Id class="list-group-item">
+              管理社团
+            </a>
+        }
         <a asp-controller="Society" asp-action="Index" class="list-group-item">
           查找社团
         </a>
@@ -80,26 +86,11 @@
     @if (Model.IsCreator || Model.IsJoined)
     {
         <div class="row">
-          <div class="col-md-10">
-            <table class="table">
-              <h3>成员列表</h3>
-              <thead>
-              <tr>
-                <th>用户名</th>
-                <th>加入时间</th>
-              </tr>
-              </thead>
-              <tbody>
-              @foreach (VMemberInfoEntity vMemberInfoEntity in  Model.VMemberInfoEntities)
-              {
-                  <tr>
-                    <td>@vMemberInfoEntity.UserName</td>
-                    <td>@vMemberInfoEntity.EntryTime</td>
-                  </tr>
-              }
-              </tbody>
-            </table>
-          </div>
+          @Html.Partial("_MemberListTablePartial", Model.VMemberInfoEntities)
+        </div>
+
+        <div class="row">
+          @Html.Partial("_ActivityListTablePartial", Model.VActivityInfoEntities)
         </div>
     }
 

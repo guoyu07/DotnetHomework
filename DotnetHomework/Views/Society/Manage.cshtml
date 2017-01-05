@@ -1,0 +1,112 @@
+@using DotnetHomework.Data.SocietyManagementSystemEntities
+@model DotnetHomework.Models.SocietyViewModels.SocietyManageViewModel
+
+
+@{
+    ViewData["Title"] = "管理社团";
+}
+
+<link rel="stylesheet" href="~/css/header-lined.css"/>
+<link rel="stylesheet" href="~/css/society/manager.css"/>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+
+  <div class="col-md-3">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-star"></i>概况
+        </h3>
+      </div>
+      <div class="list-group">
+        <a class="list-group-item active" href="#">
+          信息
+        </a>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-wrench"></i>操作
+        </h3>
+      </div>
+      <div class="list-group">
+
+        <a class="list-group-item">
+          创建新的活动
+        </a>
+        <a class="list-group-item list-group-item-danger">
+          解散社团
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-9 main-content">
+
+    <div class="header-lined">
+      <h1>社团详情</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            首页
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Index">
+            社团
+          </a>
+        </li>
+        <li class="active">管理社团</li>
+      </ol>
+    </div>
+
+    <form asp-controller="Society" asp-action="Manage" method="post" class="form-horizontal">
+      <h1>@Model.VSocietyInfoEntity.Name</h1>
+      <div class="form-group">
+        <label asp-for="VSocietyInfoEntity.Name" class="col-md-1 control-label">名称</label>
+        <div class="col-md-8">
+          <input asp-for="VSocietyInfoEntity.Name" class="form-control" disabled="disabled" value=@Model.VSocietyInfoEntity.Name/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label asp-for="VSocietyInfoEntity.CategoryId" class="col-md-1 control-label">分类</label>
+        <div class="col-md-8">
+          <select class="form-control" asp-for="VSocietyInfoEntity.CategoryId" disabled="disabled">
+            <option selected="selected">@Model.VSocietyInfoEntity.CategoryName</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-1 control-label">描述</label>
+        <div class="col-md-8">
+          <textarea asp-for="VSocietyInfoEntity.Description" class="form-control" rows="10"></textarea>
+        </div>
+      </div>
+
+      <input asp-for="VSocietyInfoEntity.Id" hidden/>
+
+      <div class="form-group">
+        <div class="col-md-offset-1 col-md-8">
+          <button type="submit" class="btn btn-primary">提交修改</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      @Html.Partial("_MemberListTablePartial", Model.VMemberInfoEntities)
+    </div>
+
+    <div class="row">
+      @Html.Partial("_ActivityListTablePartial", Model.VActivityInfoEntities)
+    </div>
+
+  </div>
+</div>
