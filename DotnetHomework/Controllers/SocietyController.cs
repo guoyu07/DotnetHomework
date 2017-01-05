@@ -143,5 +143,31 @@ namespace DotnetHomework.Controllers
 
             return View();
         }
+
+        //
+        // GET: /Society/Create
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            ViewData["SocietyCategoryEntities"] = await _societyServices.GetSocietyCategoriesAsync();
+            return View();
+        }
+
+        //
+        // POST: /Society/Create
+        [HttpPost]
+        public async Task<IActionResult> Create(SocietyCreateViewModel societyCreateViewModel)
+        {
+            ViewData["SocietyCategoryEntities"] = await _societyServices.GetSocietyCategoriesAsync();
+
+            if (ModelState.IsValid)
+            {
+                SocietyCreateResultEnum societyCreateResultEnum =
+                    await _societyServices.CreateSociety(_userManager.GetUserId(User), societyCreateViewModel);
+                ViewData["Result"] = societyCreateResultEnum;
+            }
+
+            return View(societyCreateViewModel);
+        }
     }
 }

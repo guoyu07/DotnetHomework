@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DotnetHomework.Data;
 using DotnetHomework.Data.SocietyManagementSystemDbSetExtends;
@@ -91,7 +90,7 @@ namespace DotnetHomework.Services
 
         public async Task<bool> JoinSociety(string user, int society, string entryPost)
         {
-            if (await _societyManagementSystemDbContext.Member.FindByUserAndSocietyAsync(user,society)!=null)
+            if (await _societyManagementSystemDbContext.Member.FindByUserAndSocietyAsync(user, society) != null)
             {
                 return false;
             }
@@ -114,5 +113,36 @@ namespace DotnetHomework.Services
             return (await _societyManagementSystemDbContext.Member.SingleOrDefaultAsync(
                 d => d.User.Equals(user) && d.Society == society)).EntryPost;
         }
+
+        public async Task<SocietyCreateResultEnum> CreateSociety(string user,
+            SocietyCreateViewModel societyCreateViewModel)
+        {
+            if (await _societyManagementSystemDbContext.VSocietyInfo.FindByNameAsync(societyCreateViewModel.Name) !=
+                null)
+            {
+                return SocietyCreateResultEnum.AlreadyExists;
+            }
+
+            SocietyEntity societyEntity = new SocietyEntity
+            {
+                Name = societyCreateViewModel.Name,
+                Category = societyCreateViewModel.Category,
+                Description = societyCreateViewModel.Description,
+                Creator = user,
+                CreateTime = DateTime.Now,
+                Status = SocietyDbSetStatusEnum.Pending.ToString()
+            };
+            _societyManagementSystemDbContext.Society.Add(societyEntity);
+
+            return await _societyManagementSystemDbContext.SaveChangesAsync() != 0
+                ? SocietyCreateResultEnum.Success
+                : SocietyCreateResultEnum.AlreadyExists;
+        }
+    }
+
+    public enum SocietyCreateResultEnum
+    {
+        Success,
+        AlreadyExists
     }
 }

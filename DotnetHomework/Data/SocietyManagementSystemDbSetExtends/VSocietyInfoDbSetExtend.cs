@@ -85,5 +85,11 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
         {
             return await vSocietyInfoEntities.SingleOrDefaultAsync(d => d.Id == id);
         }
+
+        public static async Task<VSocietyInfoEntity> FindByNameAsync(this DbSet<VSocietyInfoEntity> vSocietyInfoEntities,
+            string name)
+        {
+            return await vSocietyInfoEntities.SingleOrDefaultAsync(d => d.Name.Equals(name));
+        }
     }
 }

@@ -45,7 +45,7 @@
         <a asp-controller="Society" asp-action="Search" class="list-group-item">
           详细搜索
         </a>
-        <a class="list-group-item">
+        <a asp-controller="Society" asp-action="Create" class="list-group-item">
           创建新的社团
         </a>
       </div>
@@ -80,7 +80,7 @@
 
     <div class="row">
 
-      @await Html.PartialAsync("_SocietyCardPartial",Model.VSocietyInfoEntities)
+      @await Html.PartialAsync("_SocietyCardPartial", Model.VSocietyInfoEntities)
 
     </div>
   </div>
