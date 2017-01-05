@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotnetHomework.Data;
@@ -100,6 +101,7 @@ namespace DotnetHomework.Services
                 User = user,
                 Society = society,
                 EntryPost = entryPost,
+                EntryTime = DateTime.Now,
                 Status = MemberDbSetStatusEnum.Pending.ToString()
             };
             _societyManagementSystemDbContext.Member.Add(memberEntity);
