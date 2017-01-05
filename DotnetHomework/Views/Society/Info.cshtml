@@ -1,4 +1,7 @@
+@using DotnetHomework.Data.SocietyManagementSystemEntities
 @model DotnetHomework.Models.SocietyViewModels.SocietyInfoViewModel
+
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "社团详情";
@@ -13,20 +16,18 @@
 
   <div class="col-md-3">
 
-    <form asp-controller="Society" asp-action="Search" method="post" class="form-horizontal">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <i class="icon icon-star"></i>概况
-          </h3>
-        </div>
-        <div class="list-group">
-          <a class="list-group-item active" href="#">
-            信息
-          </a>
-        </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-star"></i>概况
+        </h3>
       </div>
-    </form>
+      <div class="list-group">
+        <a class="list-group-item active" href="#">
+          信息
+        </a>
+      </div>
+    </div>
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -35,6 +36,9 @@
         </h3>
       </div>
       <div class="list-group">
+        <a asp-controller="Society" asp-action="Index" class="list-group-item">
+          查找社团
+        </a>
         <a class="list-group-item">
           创建新的社团
         </a>
@@ -73,17 +77,64 @@
       </div>
     </div>
 
-    <form>
-      <div class="row">
-        <div class="col-md-10">
-          <h3>入社申请</h3>
-          <div class="form-group">
-            <textarea asp-for="Post" class="form-control" rows="7"></textarea>
+    @if (Model.IsCreator || Model.IsJoined)
+    {
+        <div class="row">
+          <div class="col-md-10">
+            <table class="table">
+              <h3>成员列表</h3>
+              <thead>
+              <tr>
+                <th>用户名</th>
+              </tr>
+              </thead>
+              <tbody>
+              @foreach (VMemberInfoEntity vMemberInfoEntity in  Model.VMemberInfoEntities)
+              {
+                  <tr>
+                    <td>@vMemberInfoEntity.UserName</td>
+                  </tr>
+              }
+              </tbody>
+            </table>
           </div>
-          <button class="btn btn-primary" type="submit">提交</button>
         </div>
+    }
+
+    <div class="row">
+      <div class="col-md-10">
+        @if (Model.IsCreator)
+        {
+            <a class="btn btn-danger">解散社团</a>
+        }
+        else
+        {
+            if (Model.IsJoined)
+            {
+                <a class="btn btn-danger">退出社团</a>
+            }
+            else
+            {
+                <h3>入社申请</h3>
+                if (Model.IsPending)
+                {
+                    <h4>@Model.Post</h4>
+                    <a class="btn btn-danger">撤销申请</a>
+                }
+                else
+                {
+                    <form asp-controller="Society" asp-action="Join">
+                      <div class="form-group">
+                        <textarea name="EntryPost" class="form-control" rows="7" placeholder="要让大家都认识你哦"></textarea>
+                      </div>
+                      <input name="SocietyId" value=@Model.VSocietyInfoEntity.Id hidden/>
+                      <button class="btn btn-primary" type="submit">提交</button>
+                    </form>
+                }
+            }
+        }
       </div>
-    </form>
+    </div>
 
   </div>
 </div>

@@ -51,5 +51,15 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 .Take(5)
                 .ToList();
         }
+
+        public static async Task<List<VMemberInfoEntity>> FindBySocietyIdAndStatusIsAccept(
+            this DbSet<VMemberInfoEntity> vMemberInfoEntities,
+            int societyId)
+        {
+            return await vMemberInfoEntities.Where(d =>
+                    d.SocietyId == societyId &&
+                    d.Status == MemberDbSetStatusEnum.Accept.ToString())
+                .ToListAsync();
+        }
     }
 }

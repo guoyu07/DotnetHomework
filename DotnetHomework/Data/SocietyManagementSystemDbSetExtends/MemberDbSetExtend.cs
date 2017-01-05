@@ -46,6 +46,14 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 d.Status == MemberDbSetStatusEnum.Pending.ToString()
             );
         }
+
+        public static async Task<MemberEntity> FindByUserAndSocietyAsync(this DbSet<MemberEntity> memberEntities,
+            string user, int society)
+        {
+            return await memberEntities.SingleOrDefaultAsync(d =>
+                d.User.Equals(user) &&
+                d.Society == society);
+        }
     }
 
     public enum MemberDbSetStatusEnum

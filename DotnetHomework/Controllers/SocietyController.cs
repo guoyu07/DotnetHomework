@@ -7,6 +7,7 @@ using DotnetHomework.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotnetHomework.Controllers
@@ -80,12 +81,68 @@ namespace DotnetHomework.Controllers
         [HttpGet]
         public async Task<IActionResult> Info(int id)
         {
+            bool isCreator = await _societyServices.IsCreator(_userManager.GetUserId(User), id);
+            bool isJoined = false;
+            bool isPending = false;
+            string post = null;
+            if (!isCreator)
+            {
+                isJoined = await _societyServices.IsJoined(_userManager.GetUserId(User), id);
+                if (!isJoined)
+                {
+                    isPending = await _societyServices.IsPending(_userManager.GetUserId(User), id);
+                    if (isPending)
+                    {
+                        post = await _societyServices.GetEntryPost(_userManager.GetUserId(User), id);
+                    }
+                }
+            }
+
+            List<VMemberInfoEntity> vMemberInfoEntities = null;
+            VSocietyInfoEntity vSocietyInfoEntity = await _societyServices.GetVSocietyInfoEntityByIdAsync(id);
+
+            if (isCreator || isJoined)
+            {
+                vMemberInfoEntities = await _societyServices.GetAvailableMembersAsync(id);
+            }
+            if (isCreator)
+            {
+                vSocietyInfoEntity.CreatorName = "我";
+            }
+
             SocietyInfoViewModel societyInfoViewModel = new SocietyInfoViewModel
             {
-                VSocietyInfoEntity = await _societyServices.GetVSocietyInfoEntityByIdAsync(id)
+                IsCreator = isCreator,
+                IsJoined = isJoined,
+                IsPending = isPending,
+                VMemberInfoEntities = vMemberInfoEntities,
+                VSocietyInfoEntity = vSocietyInfoEntity,
+                Post = post
             };
 
             return View(societyInfoViewModel);
+        }
+
+        //
+        // POST: /Society/Join
+        [HttpPost]
+        public async Task<IActionResult> Join(int societyId, string entryPost)
+        {
+            string userId = _userManager.GetUserId(User);
+            if (await _societyServices.JoinSociety(userId, societyId, entryPost))
+            {
+                ViewData["Message"] = "您的申请已提交, 请等待审核";
+                ViewData["Result"] = true;
+            }
+            else
+            {
+                ViewData["Reason"] = "你已提交申请或已加入该社团";
+                ViewData["Message"] = "入团申请提交失败";
+                ViewData["Result"] = false;
+            }
+            ViewData["SocietyId"] = societyId;
+
+            return View();
         }
     }
 }
