@@ -124,7 +124,7 @@
             <div class="list-group">
               @foreach (var societyIJoined in Model.SocietiesIJoined)
               {
-                  <a class="list-group-item">
+                  <a asp-controller="Society" asp-action="Info" asp-route-id="@societyIJoined.Id" class="list-group-item">
                     @societyIJoined.SocietyName
                   </a>
               }
@@ -146,7 +146,7 @@
             <div class="list-group">
               @foreach (var societyICreated in Model.SocietiesICreated)
               {
-                  <a class="list-group-item">
+                  <a asp-controller="Society" asp-action="Info" asp-route-id="@societyICreated.Id" class="list-group-item">
                     @societyICreated.Name
                     <span class="badge">@societyICreated.Status</span>
                   </a>
@@ -171,7 +171,7 @@
             <div class="list-group">
               @foreach (var recentActivity in Model.RecentActivities)
               {
-                  <a class="list-group-item">
+                  <a asp-controller="Activity" asp-action="Info" asp-route-id="@recentActivity.Id" class="list-group-item">
                     @recentActivity.SocietyName - @recentActivity.Name
                     <span class="badge">@recentActivity.Status</span>
                   </a>
@@ -194,7 +194,7 @@
             <div class="list-group">
               @foreach (var entryApplication in Model.EntryApplications)
               {
-                  <a class="list-group-item">
+                  <a asp-controller="Society" asp-action="Info" asp-route-id="@entryApplication.SocietyId" class="list-group-item">
                     @entryApplication.SocietyName
                   </a>
               }

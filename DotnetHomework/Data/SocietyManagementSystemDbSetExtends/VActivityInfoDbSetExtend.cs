@@ -41,5 +41,11 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 .OrderByDescending(d => d.CreateTime)
                 .ToListAsync();
         }
+
+        public static async Task<VActivityInfoEntity> FindById(
+            this DbSet<VActivityInfoEntity> vActivityInfoEntities, int id)
+        {
+            return await vActivityInfoEntities.SingleOrDefaultAsync(d => d.Id == id);
+        }
     }
 }

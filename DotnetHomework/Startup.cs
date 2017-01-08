@@ -53,6 +53,7 @@ namespace DotnetHomework
             services.AddTransient<UserCenterServices>();
             services.AddTransient<SocietyServices>();
             services.AddTransient<ActivityServices>();
+            services.AddTransient<TakePartServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

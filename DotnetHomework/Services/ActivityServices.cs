@@ -24,5 +24,10 @@ namespace DotnetHomework.Services
         {
             return await _societyManagementSystemDbContext.VActivityInfo.FindBySocietyIdOderByCreateTimeDescAsync(id);
         }
+
+        public async Task<VActivityInfoEntity> GetVActivityInfo(int id)
+        {
+            return await _societyManagementSystemDbContext.VActivityInfo.FindById(id);
+        }
     }
 }

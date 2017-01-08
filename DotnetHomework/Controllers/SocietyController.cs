@@ -163,9 +163,8 @@ namespace DotnetHomework.Controllers
 
             if (ModelState.IsValid)
             {
-                SocietyCreateResultEnum societyCreateResultEnum =
+                ViewData["Result"] =
                     await _societyServices.CreateSociety(_userManager.GetUserId(User), societyCreateViewModel);
-                ViewData["Result"] = societyCreateResultEnum;
             }
 
             return View(societyCreateViewModel);

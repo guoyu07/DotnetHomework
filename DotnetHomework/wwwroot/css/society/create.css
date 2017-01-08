@@ -2,12 +2,3 @@ textarea {
     max-width: none;
     resize: none;
 }
-
-.link-list {
-    margin-top: 50px;
-    margin-bottom: 20px;
-}
-
-.link-list a {
-    margin-right: 20px;
-}

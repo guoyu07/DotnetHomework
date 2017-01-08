@@ -17,7 +17,7 @@
     {
         <tr>
           <td>
-            <a href="/123">@vActivityInfoEntity.Name</a>
+            <a asp-controller="Activity" asp-action="Info" asp-route-id="@vActivityInfoEntity.Id">@vActivityInfoEntity.Name</a>
           </td>
           <td>@vActivityInfoEntity.CreateTime</td>
           <td>@vActivityInfoEntity.Time</td>

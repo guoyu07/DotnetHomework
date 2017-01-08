@@ -18,6 +18,8 @@ namespace DotnetHomework.Data.SocietyManagementSystemEntities
 
         public string Status { get; set; }
 
+        public string Reason { get; set; }
+
         public string SocietyName { get; set; }
 
         public string SocietyDescription { get; set; }

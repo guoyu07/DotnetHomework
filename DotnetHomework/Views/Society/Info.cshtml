@@ -1,4 +1,4 @@
-@using DotnetHomework.Data.SocietyManagementSystemEntities
+@using DotnetHomework.Data.SocietyManagementSystemDbSetExtends
 @model DotnetHomework.Models.SocietyViewModels.SocietyInfoViewModel
 
 @inject UserManager<ApplicationUser> UserManager
@@ -36,7 +36,7 @@
         </h3>
       </div>
       <div class="list-group">
-        @if (Model.IsCreator)
+        @if (Model.IsCreator && Model.VSocietyInfoEntity.Status != SocietyDbSetStatusEnum.Pending.ToString())
         {
             <a asp-controller="Society" asp-action="Manage" asp-route-id=@Model.VSocietyInfoEntity.Id class="list-group-item">
               管理社团
@@ -76,6 +76,7 @@
     <div class="row">
       <div class="col-md-12">
         <h1>@Model.VSocietyInfoEntity.Name</h1>
+        <h3>@Model.VSocietyInfoEntity.Description</h3>
         <h4>分类 @Model.VSocietyInfoEntity.CategoryName</h4>
         <h4>创建者 @Model.VSocietyInfoEntity.CreatorName</h4>
         <h4>创建时间 @Model.VSocietyInfoEntity.CreateTime</h4>
@@ -83,51 +84,69 @@
       </div>
     </div>
 
-    @if (Model.IsCreator || Model.IsJoined)
+    @if (Model.VSocietyInfoEntity.Status == SocietyDbSetStatusEnum.Pending.ToString())
     {
         <div class="row">
-          @Html.Partial("_MemberListTablePartial", Model.VMemberInfoEntities)
+          <div class="col-md-12">
+            <h2>社团审核中...</h2>
+          </div>
+        </div>
+    }
+    else if (Model.VSocietyInfoEntity.Status == SocietyDbSetStatusEnum.Reject.ToString())
+    {
+        <div class="row">
+          <div class="col-md-12">
+            <h2>申请被拒</h2>
+            <h4>@Model.VSocietyInfoEntity.Reason</h4>
+          </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+          @if (Model.IsCreator || Model.IsJoined)
+          {
+              @Html.Partial("_MemberListTablePartial", Model.VMemberInfoEntities)
+
+              @Html.Partial("_ActivityListTablePartial", Model.VActivityInfoEntities)
+          }
         </div>
 
         <div class="row">
-          @Html.Partial("_ActivityListTablePartial", Model.VActivityInfoEntities)
-        </div>
-    }
-
-    <div class="row">
-      <div class="col-md-10">
-        @if (Model.IsCreator)
-        {
-            <a class="btn btn-danger">解散社团</a>
-        }
-        else
-        {
-            if (Model.IsJoined)
+          <div class="col-md-10">
+            @if (Model.IsCreator)
             {
-                <a class="btn btn-danger">退出社团</a>
+                <a class="btn btn-danger">解散社团</a>
             }
             else
             {
-                <h3>入社申请</h3>
-                if (Model.IsPending)
+                if (Model.IsJoined)
                 {
-                    <h4>@Model.Post</h4>
-                    <a class="btn btn-danger">撤销申请</a>
+                    <a class="btn btn-danger">退出社团</a>
                 }
                 else
                 {
-                    <form asp-controller="Society" asp-action="Join">
-                      <div class="form-group">
-                        <textarea name="EntryPost" class="form-control" rows="7" placeholder="要让大家都认识你哦"></textarea>
-                      </div>
-                      <input name="SocietyId" value=@Model.VSocietyInfoEntity.Id hidden/>
-                      <button class="btn btn-primary" type="submit">提交</button>
-                    </form>
+                    <h3>入社申请</h3>
+                    if (Model.IsPending)
+                    {
+                        <h4>@Model.Post</h4>
+                        <a class="btn btn-danger">撤销申请</a>
+                    }
+                    else
+                    {
+                        <form asp-controller="Society" asp-action="Join">
+                          <div class="form-group">
+                            <textarea name="EntryPost" class="form-control" rows="7" placeholder="要让大家都认识你哦"></textarea>
+                          </div>
+                          <input name="SocietyId" value=@Model.VSocietyInfoEntity.Id hidden/>
+                          <button class="btn btn-primary" type="submit">提交</button>
+                        </form>
+                    }
                 }
             }
-        }
-      </div>
-    </div>
+          </div>
+        </div>
+    }
 
   </div>
 </div>
