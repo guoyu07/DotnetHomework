@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DotnetHomework.Data;
 using DotnetHomework.Data.SocietyManagementSystemDbSetExtends;
@@ -156,6 +157,23 @@ namespace DotnetHomework.Services
         public async Task<List<VMemberInfoEntity>> GetPendingMembersAsync(int society)
         {
             return await _societyManagementSystemDbContext.VMemberInfo.FindBySocietyIdAndStatusIsPending(society);
+        }
+
+        public async Task<List<VSocietyInfoEntity>> GetPendingSocietiesAsync()
+        {
+            return await _societyManagementSystemDbContext.VSocietyInfo.Where(
+                    d => d.Status == SocietyDbSetStatusEnum.Pending.ToString())
+                .ToListAsync();
+        }
+
+        public async Task<bool> EditSocietyStatus(int id, SocietyDbSetStatusEnum societyDbSetStatusEnum)
+        {
+            SocietyEntity societyEntity = await _societyManagementSystemDbContext.Society.SingleOrDefaultAsync(d =>
+                d.Id == id);
+            societyEntity.Status = societyDbSetStatusEnum.ToString();
+            _societyManagementSystemDbContext.Society.Update(societyEntity);
+
+            return await _societyManagementSystemDbContext.SaveChangesAsync() != 0;
         }
     }
 

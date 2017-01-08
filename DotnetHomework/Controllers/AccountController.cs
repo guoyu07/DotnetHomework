@@ -61,6 +61,8 @@ namespace DotnetHomework.Controllers
                     lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
+                    await _userManager.AddToRolesAsync(user, await _userManager.GetRolesAsync(user));
                     _logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -116,6 +118,7 @@ namespace DotnetHomework.Controllers
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _userManager.AddToRolesAsync(user, await _userManager.GetRolesAsync(user));
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }

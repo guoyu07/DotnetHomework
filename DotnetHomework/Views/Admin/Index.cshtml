@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "管理中心";
+}
+
+<link rel="stylesheet" href="~/css/header-lined.css"/>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-wrench"></i>功能
+        </h3>
+      </div>
+      <div class="list-group">
+        <a asp-controller="Admin" asp-action="PendingSocieties" class="list-group-item">
+          待审核社团
+          <span class="badge">@ViewData["PendingSocieties"]</span>
+        </a>
+        <a asp-controller="Admin" asp-action="PendingActivities" class="list-group-item">
+          待审核活动
+          <span class="badge">@ViewData["PendingActivities"]</span>
+        </a>
+        <a class="list-group-item">
+          社团总览
+        </a>
+        <a class="list-group-item">
+          活动日程
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 main-content">
+
+    <div class="header-lined">
+      <h1>管理中心</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            首页
+          </a>
+        </li>
+        <li class="active">管理中心</li>
+      </ol>
+    </div>
+
+    @if ((int)ViewData["PendingSocieties"] == 0 && (int)ViewData["PendingActivities"] == 0)
+    {
+        <h3>当前没有需要审核的内容, 喝杯茶轻松一下</h3>
+    }
+    else
+    {
+        <h4>当前待审核社团 @ViewData["PendingSocieties"] 个</h4>
+        <h4>当前待审核活动 @ViewData["PendingActivities"] 个</h4>
+    }
+
+  </div>
+
+</div>

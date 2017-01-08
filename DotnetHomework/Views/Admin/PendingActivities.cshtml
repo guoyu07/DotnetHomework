@@ -1,0 +1,95 @@
+@using DotnetHomework.Data.SocietyManagementSystemEntities
+@model List<DotnetHomework.Data.SocietyManagementSystemEntities.VActivityInfoEntity>
+
+@{
+    ViewData["Title"] = "待审核活动";
+}
+
+<link rel="stylesheet" href="~/css/header-lined.css"/>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-wrench"></i>功能
+        </h3>
+      </div>
+      <div class="list-group">
+        <a asp-controller="Admin" asp-action="PendingSocieties" class="list-group-item">
+          待审核社团
+          <span class="badge">@ViewData["PendingSocieties"]</span>
+        </a>
+        <a asp-controller="Admin" asp-action="PendingActivities" class="list-group-item">
+          待审核活动
+          <span class="badge">@ViewData["PendingActivities"]</span>
+        </a>
+        <a class="list-group-item">
+          社团总览
+        </a>
+        <a class="list-group-item">
+          活动日程
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 main-content">
+
+    <div class="header-lined">
+      <h1>待审核活动</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            首页
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Admin" asp-action="Index">
+            管理中心
+          </a>
+        </li>
+        <li>待审核活动</li>
+      </ol>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table">
+          <h3>待审活动</h3>
+          <thead>
+          <tr>
+            <th>社团</th>
+            <th>活动名</th>
+            <th>描述</th>
+            <th>活动时间</th>
+            <th>创建时间</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach (VActivityInfoEntity vActivityInfoEntity in  Model)
+          {
+              <tr>
+                <td>@vActivityInfoEntity.SocietyName</td>
+                <td>@vActivityInfoEntity.Name</td>
+                <td>@vActivityInfoEntity.Description</td>
+                <td>@vActivityInfoEntity.Time</td>
+                <td>@vActivityInfoEntity.CreateTime</td>
+                <td>
+                  <a asp-controller="Admin" asp-action="ActivityActive" asp-route-id="@vActivityInfoEntity.Id" class="btn btn-primary">通过</a>
+                  <a asp-controller="Admin" asp-action="ActivityReject" asp-route-id="@vActivityInfoEntity.Id" class="btn btn-danger">拒绝</a>
+                </td>
+              </tr>
+          }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
