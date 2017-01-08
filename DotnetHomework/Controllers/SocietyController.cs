@@ -183,7 +183,7 @@ namespace DotnetHomework.Controllers
             SocietyManageViewModel societyManageViewModel = new SocietyManageViewModel
             {
                 VSocietyInfoEntity = await _societyServices.GetVSocietyInfo(id),
-                VMemberInfoEntities = await _societyServices.GetAvailableMembersAsync(id),
+                AvailableMembers = await _societyServices.GetAvailableMembersAsync(id),
                 VActivityInfoEntities = await _activityServices.GetAllActivitiesDescAsync(id)
             };
 

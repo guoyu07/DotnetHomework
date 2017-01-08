@@ -7,7 +7,7 @@ namespace DotnetHomework.Models.SocietyViewModels
     {
         public VSocietyInfoEntity VSocietyInfoEntity { get; set; }
 
-        public List<VMemberInfoEntity> VMemberInfoEntities { get; set; }
+        public List<VMemberInfoEntity> AvailableMembers { get; set; }
 
         public List<VActivityInfoEntity> VActivityInfoEntities { get; set; }
     }

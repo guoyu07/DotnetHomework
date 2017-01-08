@@ -3,6 +3,12 @@
 
 @foreach (VSocietyInfoEntity vSocietyInfoEntity in Model)
 {
+    //只显示一行社团详情, 超出部分用 ... 替代
+    if (vSocietyInfoEntity.Description.Length>16)
+    {
+        vSocietyInfoEntity.Description = vSocietyInfoEntity.Description.Substring(0, 15)+"...";
+    }
+
     <div class="col-md-4 col-sm-6 col-xs-12">
       <div class="card">
         <div class="card-header">
