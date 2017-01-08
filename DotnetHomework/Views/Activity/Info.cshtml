@@ -33,13 +33,13 @@
         </h3>
       </div>
       <div class="list-group">
-        @if (!Model.IsCreator && !Model.IsTakedPart)
+        @if (!Model.IsTakedPart && Model.VActivityInfoEntity.Status==ActivityDbSetStatusEnum.Active.ToString())
         {
-            <a class="list-group-item">
+            <a asp-controller="Activity" asp-action="TakePart" asp-route-id="@Model.VActivityInfoEntity.Id" class="list-group-item">
               加入活动
             </a>
         }
-        <a asp-controller="Society" asp-action="Info" asp-route-id="@Model.VActivityInfoEntity.Id" class="list-group-item">
+        <a asp-controller="Society" asp-action="Info" asp-route-id="@Model.VActivityInfoEntity.SocietyId" class="list-group-item">
           返回社团详情
         </a>
       </div>
@@ -78,6 +78,10 @@
         <h4>创建时间 @Model.VActivityInfoEntity.CreateTime</h4>
         <h4>活动时间 @Model.VActivityInfoEntity.Time</h4>
         <h4>活动状态 @Model.VActivityInfoEntity.Status</h4>
+        @if (Model.IsTakedPart)
+        {
+            <h4>已参加</h4>
+        }
       </div>
     </div>
 

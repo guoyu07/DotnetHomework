@@ -9,14 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotnetHomework.Controllers
 {
     [Authorize]
-    public class ActivityController:Controller
+    public class ActivityController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ActivityServices _activityServices;
         private readonly TakePartServices _takePartServices;
         private readonly SocietyServices _societyServices;
 
-        public ActivityController(UserManager<ApplicationUser> userManager, ActivityServices activityServices, TakePartServices takePartServices, SocietyServices societyServices)
+        public ActivityController(UserManager<ApplicationUser> userManager, ActivityServices activityServices,
+            TakePartServices takePartServices, SocietyServices societyServices)
         {
             _userManager = userManager;
             _activityServices = activityServices;
@@ -34,11 +35,19 @@ namespace DotnetHomework.Controllers
             {
                 VActivityInfoEntity = await _activityServices.GetVActivityInfo(id),
                 VTakePartInfoEntities = await _takePartServices.GetParticipatorsAsync(id),
-                IsCreator = await _societyServices.IsCreator(_userManager.GetUserId(User),id),
-                IsTakedPart = await _takePartServices.IsTakedPart(_userManager.GetUserId(User),id)
+                IsTakedPart = await _takePartServices.IsTakedPart(_userManager.GetUserId(User), id)
             };
 
             return View(activityInfoViewModel);
+        }
+
+        //
+        // GET: /Activity/TakePart/{id}
+        [HttpGet]
+        public async Task<IActionResult> TakePart(int id)
+        {
+            await _takePartServices.TakePart(_userManager.GetUserId(User), id);
+            return RedirectToAction("Info", new {id = id});
         }
 
         // GET: /Activity/Create/{id}

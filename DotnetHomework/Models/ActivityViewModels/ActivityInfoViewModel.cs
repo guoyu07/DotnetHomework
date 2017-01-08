@@ -9,8 +9,6 @@ namespace DotnetHomework.Models.ActivityViewModels
 
         public List<VTakePartInfoEntity> VTakePartInfoEntities { get; set; }
 
-        public bool IsCreator { get; set; }
-
         public bool IsTakedPart { get; set; }
     }
 }

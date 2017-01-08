@@ -23,19 +23,19 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
             return vTakePartInfoEntities.Where(d => d.UserId.Equals(userId)).ToList();
         }
 
-        public static async Task<List<VTakePartInfoEntity>> FindBySocietyIdAsync(
+        public static async Task<List<VTakePartInfoEntity>> FindByActivityIdAsync(
             this DbSet<VTakePartInfoEntity> vTakePartInfoEntities,
-            int societyId)
+            int activityId)
         {
-            return await vTakePartInfoEntities.Where(d => d.SocietyId == societyId).ToListAsync();
+            return await vTakePartInfoEntities.Where(d => d.ActivityId == activityId).ToListAsync();
         }
 
-        public static async Task<VTakePartInfoEntity> FindByUserIdAndId(
-            this DbSet<VTakePartInfoEntity> vTakePartInfoEntities, string userid, int id)
+        public static async Task<VTakePartInfoEntity> FindByUserIdAndActivityIdAsync(
+            this DbSet<VTakePartInfoEntity> vTakePartInfoEntities, string userid, int activityId)
         {
             return await vTakePartInfoEntities.SingleOrDefaultAsync(d =>
                 d.UserId.Equals(userid) &&
-                d.Id == id);
+                d.ActivityId == activityId);
         }
     }
 }
