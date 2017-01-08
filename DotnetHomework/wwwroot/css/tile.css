@@ -1,6 +1,4 @@
-.tiles {
-    margin: 0 15px 15px 15px;
-}
+.tiles { margin: 0 15px 15px 15px; }
 
 .tiles .tile {
     padding: 12px 20px;
@@ -8,13 +6,9 @@
     border-right: 1px solid #ccc;
 }
 
-.tiles .tile:last-child {
-    border: 0;
-}
+.tiles .tile:last-child { border: 0; }
 
-.tiles .tile a {
-    text-decoration: none;
-}
+.tiles .tile a { text-decoration: none; }
 
 .tiles .tile .highlight {
     margin-top: 4px;

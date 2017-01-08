@@ -15,6 +15,5 @@ namespace DotnetHomework.Data.SocietyManagementSystemEntities
         public DateTime? EntryTime { get; set; }
 
         public string Status { get; set; }
-
     }
 }

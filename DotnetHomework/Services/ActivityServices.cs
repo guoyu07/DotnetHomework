@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DotnetHomework.Data;
 using DotnetHomework.Data.SocietyManagementSystemDbSetExtends;
 using DotnetHomework.Data.SocietyManagementSystemEntities;
+using DotnetHomework.Models.ActivityViewModels;
 
 namespace DotnetHomework.Services
 {
@@ -28,6 +30,27 @@ namespace DotnetHomework.Services
         public async Task<VActivityInfoEntity> GetVActivityInfo(int id)
         {
             return await _societyManagementSystemDbContext.VActivityInfo.FindById(id);
+        }
+
+        public async Task<bool> CreateActivity(int id, ActivityCreateViewModel activityCreateViewModel)
+        {
+            ActivityEntity activityEntity = new ActivityEntity
+            {
+                Society = id,
+                Name = activityCreateViewModel.Name,
+                Description = activityCreateViewModel.Description,
+                Time = activityCreateViewModel.Time,
+                CreateTime = DateTime.Now,
+                Status = ActivityDbSetStatusEnum.Pending.ToString()
+            };
+            _societyManagementSystemDbContext.Activity.Add(activityEntity);
+
+            return await _societyManagementSystemDbContext.SaveChangesAsync() != 0;
+        }
+
+        public enum ActivityCreateResultEnum
+        {
+            Success
         }
     }
 }

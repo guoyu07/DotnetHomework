@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DotnetHomework.Models;
 using DotnetHomework.Models.ActivityViewModels;
 using DotnetHomework.Services;
@@ -47,21 +48,34 @@ namespace DotnetHomework.Controllers
         public async Task<IActionResult> TakePart(int id)
         {
             await _takePartServices.TakePart(_userManager.GetUserId(User), id);
-            return RedirectToAction("Info", new {id = id});
+            return RedirectToAction("Info", new {id});
         }
 
         // GET: /Activity/Create/{id}
         [HttpGet]
         public async Task<IActionResult> Create(int id)
         {
-            return View();
+            ActivityCreateViewModel activityCreateViewModel = new ActivityCreateViewModel
+            {
+                VSocietyInfoEntity = await _societyServices.GetVSocietyInfo(id)
+            };
+            return View(activityCreateViewModel);
         }
 
         // POST: /Activity/Create/{id}
         [HttpPost]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int id, ActivityCreateViewModel activityCreateViewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (await _activityServices.CreateActivity(id, activityCreateViewModel))
+                {
+                    ViewData["Result"] = ActivityServices.ActivityCreateResultEnum.Success;
+                }
+            }
+
+            activityCreateViewModel.VSocietyInfoEntity = await _societyServices.GetVSocietyInfo(id);
+            return View(activityCreateViewModel);
         }
     }
 }

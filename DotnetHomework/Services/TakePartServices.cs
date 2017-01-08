@@ -23,12 +23,13 @@ namespace DotnetHomework.Services
 
         public async Task<bool> IsTakedPart(string user, int id)
         {
-            return await _societyManagementSystemDbContext.VTakePartInfo.FindByUserIdAndActivityIdAsync(user, id) != null;
+            return await _societyManagementSystemDbContext.VTakePartInfo.FindByUserIdAndActivityIdAsync(user, id) !=
+                   null;
         }
 
         public async Task<bool> TakePart(string user, int id)
         {
-            if (await IsTakedPart(user,id))
+            if (await IsTakedPart(user, id))
             {
                 return false;
             }

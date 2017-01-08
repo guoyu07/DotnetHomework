@@ -1,0 +1,113 @@
+@using DotnetHomework.Services
+@model DotnetHomework.Models.ActivityViewModels.ActivityCreateViewModel
+
+@{
+    ViewData["Title"] = "创建活动";
+}
+
+<link rel="stylesheet" href="~/css/header-lined.css"/>
+<link rel="stylesheet" href="~/css/link-list.css"/>
+<link rel="stylesheet" href="~/css/activity/create.css"/>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+
+  <div class="col-md-3">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-wrench"></i>操作
+        </h3>
+      </div>
+      <div class="list-group">
+        <a asp-controller="Society" asp-action="Manage" asp-route-id="@Model.VSocietyInfoEntity.Id" class="list-group-item">
+          返回社团管理
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-9 main-content">
+
+    <div class="header-lined">
+      <h1>创建活动</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            首页
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Index">
+            社团
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Info" asp-route-id="@Model.VSocietyInfoEntity.Id">
+            @Model.VSocietyInfoEntity.Name
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Manage" asp-route-id="@Model.VSocietyInfoEntity.Id">
+            管理社团
+          </a>
+        </li>
+        <li class="active">创建活动</li>
+      </ol>
+    </div>
+
+    @if (ViewData["Result"] == null)
+    {
+        <form asp-controller="Activity" asp-action="Create" asp-route-id="@Model.VSocietyInfoEntity.Id" method="post" class="form-horizontal">
+          <div asp-validation-summary="All" class="text-danger"></div>
+
+          <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-8">
+              <input asp-for="Name" class="form-control"/>
+              <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-8">
+              <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+              <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label asp-for="Time" class="col-md-2 control-label"></label>
+            <div class="col-md-8">
+              <input type="date" asp-for="Time" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+              <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-2 col-md-8">
+              <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+          </div>
+
+        </form>
+    }
+    else
+    {
+        if ((ActivityServices.ActivityCreateResultEnum) ViewData["Result"] == ActivityServices.ActivityCreateResultEnum.Success)
+        {
+            <h1>您的活动创建申请已提交, 请耐心等待审核</h1>
+            <h4 class="link-list">
+              <a asp-controller="Activity" asp-action="Create" asp-route-id="@Model.VSocietyInfoEntity.Id">再创建一个活动</a>
+              <a asp-controller="Society" asp-action="Manage" asp-route-id="@Model.VSocietyInfoEntity.Id">返回社团管理</a>
+            </h4>
+        }
+    }
+
+  </div>
+
+</div>

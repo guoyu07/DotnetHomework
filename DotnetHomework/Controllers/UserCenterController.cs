@@ -25,7 +25,8 @@ namespace DotnetHomework.Controllers
             {
                 AmountOfSocietiesIJoined = await _userCenterServices.GetAmountOfJoinedSocieties(HttpContext.User),
                 AmountOfSocietiesICreated = await _userCenterServices.GetAmountOfCreatedSocieties(HttpContext.User),
-                AmountOfActivitiesITakingPart = await _userCenterServices.GetAmountOfTakingPartActivities(HttpContext.User),
+                AmountOfActivitiesITakingPart =
+                    await _userCenterServices.GetAmountOfTakingPartActivities(HttpContext.User),
                 AmountOfEntryApplications = await _userCenterServices.GetAmountOfEntryApplications(HttpContext.User),
                 SocietiesIJoined = await _userCenterServices.GetJoinedSocieties(HttpContext.User),
                 SocietiesICreated = await _userCenterServices.GetCreatedSocieties(HttpContext.User),

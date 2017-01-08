@@ -38,7 +38,7 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
             return await societyEntities.CountAsync(d => d.Status == SocietyDbSetStatusEnum.Active.ToString());
         }
 
-        public static async Task<SocietyEntity> FindById(this DbSet<SocietyEntity> societyEntities,int id)
+        public static async Task<SocietyEntity> FindById(this DbSet<SocietyEntity> societyEntities, int id)
         {
             return await societyEntities.SingleOrDefaultAsync(d => d.Id == id);
         }

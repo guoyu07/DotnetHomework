@@ -61,7 +61,7 @@
         </h3>
       </div>
       <div class="list-group">
-        <a  asp-controller="Society" asp-action="Create" class="list-group-item">
+        <a asp-controller="Society" asp-action="Create" class="list-group-item">
           创建新的社团
         </a>
       </div>
@@ -98,7 +98,7 @@
       }
       else
       {
-        @await Html.PartialAsync("_SocietyCardPartial",Model.VSocietyInfoEntities)
+          @await Html.PartialAsync("_SocietyCardPartial", Model.VSocietyInfoEntities)
       }
     </div>
 

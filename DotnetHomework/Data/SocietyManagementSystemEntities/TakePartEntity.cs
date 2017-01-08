@@ -10,6 +10,6 @@ namespace DotnetHomework.Data.SocietyManagementSystemEntities
 
         public int Activity { get; set; }
 
-        public Nullable<DateTime> Time{ get; set; }
+        public Nullable<DateTime> Time { get; set; }
     }
 }

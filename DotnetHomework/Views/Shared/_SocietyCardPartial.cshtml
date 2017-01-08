@@ -3,17 +3,17 @@
 
 @foreach (VSocietyInfoEntity vSocietyInfoEntity in Model)
 {
-<div class="col-md-4 col-sm-6 col-xs-12">
-  <div class="card">
-    <div class="card-header">
-      @vSocietyInfoEntity.CategoryName
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-header">
+          @vSocietyInfoEntity.CategoryName
+        </div>
+        <div class="card-block">
+          <h4 class="card-title">@vSocietyInfoEntity.Name</h4>
+          <p class="card-text">@vSocietyInfoEntity.Description</p>
+          <a asp-controller="Society" asp-action="Info" asp-route-id=@vSocietyInfoEntity.Id class="btn btn-primary">立即加入</a>
+          <span>已有 <strong>@vSocietyInfoEntity.MemberCount</strong> 人加入</span>
+        </div>
+      </div>
     </div>
-    <div class="card-block">
-      <h4 class="card-title">@vSocietyInfoEntity.Name</h4>
-      <p class="card-text">@vSocietyInfoEntity.Description</p>
-      <a asp-controller="Society" asp-action="Info" asp-route-id=@vSocietyInfoEntity.Id class="btn btn-primary">立即加入</a>
-      <span>已有 <strong>@vSocietyInfoEntity.MemberCount</strong> 人加入</span>
-    </div>
-  </div>
-</div>
 }
