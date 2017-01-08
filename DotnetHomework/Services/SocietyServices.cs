@@ -152,6 +152,11 @@ namespace DotnetHomework.Services
 
             return await _societyManagementSystemDbContext.SaveChangesAsync() != 0;
         }
+
+        public async Task<List<VMemberInfoEntity>> GetPendingMembersAsync(int society)
+        {
+            return await _societyManagementSystemDbContext.VMemberInfo.FindBySocietyIdAndStatusIsPending(society);
+        }
     }
 
     public enum SocietyCreateResultEnum

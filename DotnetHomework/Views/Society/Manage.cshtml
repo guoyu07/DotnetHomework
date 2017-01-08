@@ -1,6 +1,4 @@
-@using DotnetHomework.Data.SocietyManagementSystemEntities
 @model DotnetHomework.Models.SocietyViewModels.SocietyManageViewModel
-
 
 @{
     ViewData["Title"] = "管理社团";
@@ -35,7 +33,10 @@
         </h3>
       </div>
       <div class="list-group">
-
+        <a asp-controller="Society" asp-action="EntryApplications" asp-route-id="@Model.VSocietyInfoEntity.Id" class="list-group-item">
+          审核入团申请
+          <span class="badge">@Model.PendingMembers.Count</span>
+        </a>
         <a asp-controller="Activity" asp-action="Create" asp-route-id="@Model.VSocietyInfoEntity.Id" class="list-group-item">
           创建新的活动
         </a>

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DotnetHomework.Data;
+using DotnetHomework.Data.SocietyManagementSystemDbSetExtends;
 using DotnetHomework.Data.SocietyManagementSystemEntities;
 using DotnetHomework.Models;
 using DotnetHomework.Models.SocietyViewModels;
@@ -17,13 +19,16 @@ namespace DotnetHomework.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SocietyServices _societyServices;
         private readonly ActivityServices _activityServices;
+        private readonly SocietyManagementSystemDbContext _societyManagementSystemDbContext;
+        private readonly MemberServices _memberServices;
 
-        public SocietyController(UserManager<ApplicationUser> userManager, SocietyServices societyServices,
-            ActivityServices activityServices)
+        public SocietyController(UserManager<ApplicationUser> userManager, SocietyServices societyServices, ActivityServices activityServices, SocietyManagementSystemDbContext societyManagementSystemDbContext, MemberServices memberServices)
         {
             _userManager = userManager;
             _societyServices = societyServices;
             _activityServices = activityServices;
+            _societyManagementSystemDbContext = societyManagementSystemDbContext;
+            _memberServices = memberServices;
         }
 
         //
@@ -184,6 +189,7 @@ namespace DotnetHomework.Controllers
             {
                 VSocietyInfoEntity = await _societyServices.GetVSocietyInfo(id),
                 AvailableMembers = await _societyServices.GetAvailableMembersAsync(id),
+                PendingMembers = await _societyServices.GetPendingMembersAsync(id),
                 VActivityInfoEntities = await _activityServices.GetAllActivitiesDescAsync(id)
             };
 
@@ -201,6 +207,41 @@ namespace DotnetHomework.Controllers
                 return View("Error");
             }
             return RedirectToAction("Manage");
+        }
+
+        //
+        // GET: /Society/EntryApplications/{id}
+        [HttpGet]
+        public async Task<IActionResult> EntryApplications(int id)
+        {
+            SocietyEntryApplicationsViewModel societyEntryApplicationsViewModel = new SocietyEntryApplicationsViewModel
+            {
+                VMemberInfoEntities = await _societyServices.GetPendingMembersAsync(id),
+                VSocietyInfoEntity = await _societyServices.GetVSocietyInfo(id)
+            };
+            return View(societyEntryApplicationsViewModel);
+        }
+
+        //
+        // POST: /Society/EntryApplicationAccept/{id}
+        [HttpGet]
+        public async Task<IActionResult> EntryApplicationAccept(int id)
+        {
+            await _memberServices.EditStatusAsync(id, MemberDbSetStatusEnum.Accept);
+            int societyId = (await _societyManagementSystemDbContext.Member.FindById(id)).Society;
+
+            return RedirectToAction("EntryApplications", new {id = societyId});
+        }
+
+        //
+        // POST: /Society/EntryApplicationReject/{id}
+        [HttpGet]
+        public async Task<IActionResult> EntryApplicationReject(int id)
+        {
+            await _memberServices.EditStatusAsync(id, MemberDbSetStatusEnum.Reject);
+            int societyId = (await _societyManagementSystemDbContext.Member.FindById(id)).Society;
+
+            return RedirectToAction("EntryApplications", new {id = societyId});
         }
     }
 }

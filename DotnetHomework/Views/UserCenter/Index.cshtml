@@ -124,7 +124,7 @@
             <div class="list-group">
               @foreach (var societyIJoined in Model.SocietiesIJoined)
               {
-                  <a asp-controller="Society" asp-action="Info" asp-route-id="@societyIJoined.Id" class="list-group-item">
+                  <a asp-controller="Society" asp-action="Info" asp-route-id="@societyIJoined.SocietyId" class="list-group-item">
                     @societyIJoined.SocietyName
                   </a>
               }

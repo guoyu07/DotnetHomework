@@ -9,6 +9,8 @@ namespace DotnetHomework.Models.SocietyViewModels
 
         public List<VMemberInfoEntity> AvailableMembers { get; set; }
 
+        public List<VMemberInfoEntity> PendingMembers { get; set; }
+
         public List<VActivityInfoEntity> VActivityInfoEntities { get; set; }
     }
 }

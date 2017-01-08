@@ -54,11 +54,17 @@ namespace DotnetHomework.Data.SocietyManagementSystemDbSetExtends
                 d.User.Equals(user) &&
                 d.Society == society);
         }
+
+        public static async Task<MemberEntity> FindById(this DbSet<MemberEntity> memberEntities, int id)
+        {
+            return await memberEntities.SingleOrDefaultAsync(d => d.Id == id);
+        }
     }
 
     public enum MemberDbSetStatusEnum
     {
         Pending,
-        Accept
+        Accept,
+        Reject
     }
 }

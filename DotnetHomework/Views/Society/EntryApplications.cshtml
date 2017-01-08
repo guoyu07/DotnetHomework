@@ -1,0 +1,104 @@
+@using DotnetHomework.Data.SocietyManagementSystemEntities
+@model DotnetHomework.Models.SocietyViewModels.SocietyEntryApplicationsViewModel
+
+@{
+    ViewData["Title"] = "审核入团申请";
+}
+
+<link rel="stylesheet" href="~/css/header-lined.css"/>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+
+  <div class="col-md-3">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-star"></i>概况
+        </h3>
+      </div>
+      <div class="list-group">
+        <a class="list-group-item active" href="#">
+          信息
+        </a>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="icon icon-wrench"></i>操作
+        </h3>
+      </div>
+      <div class="list-group">
+        <a asp-controller="Society" asp-action="Manage" asp-route-id="@Model.VSocietyInfoEntity.Id" class="list-group-item">
+          返回社团管理
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-9 main-content">
+
+    <div class="header-lined">
+      <h1>审核入团申请</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            首页
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Index">
+            社团
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Info" asp-route-id="@Model.VSocietyInfoEntity.Id">
+            @Model.VSocietyInfoEntity.Name
+          </a>
+        </li>
+        <li>
+          <a asp-controller="Society" asp-action="Manage" asp-route-id="@Model.VSocietyInfoEntity.Id">
+            管理社团
+          </a>
+        </li>
+        <li class="active">审核入团申请</li>
+      </ol>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table">
+          <h3>待审列表</h3>
+          <thead>
+          <tr>
+            <th>用户名</th>
+            <th>申请时间</th>
+            <th>入团说明</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach (VMemberInfoEntity vMemberInfoEntity in  Model.VMemberInfoEntities)
+          {
+              <tr>
+                <td>@vMemberInfoEntity.UserName</td>
+                <td>@vMemberInfoEntity.EntryTime</td>
+                <td>@vMemberInfoEntity.EntryPost</td>
+                <td>
+                  <a asp-controller="Society" asp-action="EntryApplicationAccept" asp-route-id="@vMemberInfoEntity.Id" class="btn btn-primary">通过</a>
+                  <a asp-controller="Society" asp-action="EntryApplicationReject" asp-route-id="@vMemberInfoEntity.Id" class="btn btn-danger">拒绝</a>
+                </td>
+              </tr>
+          }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
