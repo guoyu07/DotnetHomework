@@ -8,7 +8,7 @@ using DotnetHomework.Data;
 namespace DotnetHomework.Data.SocietyManagementSystemMigrations
 {
     [DbContext(typeof(SocietyManagementSystemDbContext))]
-    [Migration("20170108191034_init")]
+    [Migration("20170109022924_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
